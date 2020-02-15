@@ -1,0 +1,115 @@
+.contact {
+	padding: {
+		top: 20rem;
+	}
+
+	//CONTACT US TITLE
+	&__title {
+		display: flex;
+		justify-content: flex-end;
+		margin: {
+			top: 6rem;
+			bottom: 4rem;
+
+			right: 7rem;
+		}
+		font-size: 10rem;
+		color: #ff6e21;
+		text-transform: uppercase;
+		font-family: 'Raleway';
+	}
+	//INFORMATION TO THE LEFT
+	&__information {
+		background-color: #fff;
+		display: flex;
+		justify-content: space-between;
+		padding: {
+			top: 6rem;
+			bottom: 6rem;
+			left: 7rem;
+		}
+		&__text {
+			//TEXT
+			font-size: 1.9rem;
+			font-family: 'Raleway';
+			width: 45%;
+			white-space: pre-wrap;
+			&__title {
+				font-size: 3rem;
+				font-family: 'Raleway';
+			}
+			&__line {
+				white-space: normal;
+				margin: 2.5rem 0;
+			}
+			//FORM
+			&__form {
+				display: flex;
+				flex-direction: column;
+				&__row {
+					display: flex;
+					justify-content: space-between;
+					margin: {
+						top: 4rem;
+					}
+				}
+				&__group {
+					display: flex;
+					flex-direction: column;
+					width: 49%;
+				}
+				&__input {
+					margin: {
+						top: 1rem;
+					}
+					border: none;
+					background: #eeeeee;
+					padding: 2rem;
+					font-size: 1.8rem;
+				}
+
+				&__button {
+					padding: 1.5rem 3rem;
+					font-family: inherit;
+					font-size: 1.4rem;
+					text-transform: uppercase;
+					border: none;
+					background-color: #333333;
+					color: #fff;
+					cursor: pointer;
+				}
+				.email-row,
+				.text-row {
+					display: flex;
+					flex-direction: column;
+				}
+
+				.text-box {
+					resize: none;
+					height: 15rem;
+					font-family: 'Raleway';
+					font-size: 1.8rem;
+				}
+			}
+		}
+		//IMAGE TO THE RIGHT
+		&__img {
+			height: 60rem;
+			align-self: center;
+		}
+	}
+
+	.react-select {
+		margin-top: 1rem;
+		&__control {
+			border: none;
+			padding: 2rem;
+			&:focus {
+				outline: none;
+			}
+			&:active {
+				border: none;	
+			}
+		}
+	}
+}

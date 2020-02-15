@@ -1,0 +1,80 @@
+.main-slider {
+	display: flex;
+	justify-content: flex-end;
+	position: relative;
+	&__orange-box {
+		display: flex;
+		align-items: center;
+
+		height: 70rem;
+		width: 65%;
+		background: #f16623;
+
+		&__text-slider {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 51rem;
+			width: 110rem;
+			line-height: 1.5;
+			padding: {
+				left: 40rem;
+			}
+
+			&__slides {
+				&__title {
+					margin-bottom: 4rem;
+					padding: {
+						top: 5rem;
+					}
+					font-size: 5rem;
+					color: white;
+					font-family: 'Raleway';
+					font-weight: 900;
+					text-transform: uppercase;
+					letter-spacing: 1px;
+				}
+				&__description {
+					height: 23rem;
+					font-size: 2rem;
+					color: white;
+					font-family: 'Raleway';
+				}
+			}
+
+			&__button {
+				align-self: flex-start;
+				padding: 2rem 3rem;
+				border: none;
+				color: #f16623;
+				font-size: 2rem;
+				font-weight: bold;
+				font-family: 'Raleway';
+				cursor: pointer;
+				background: #fff;
+				&:hover {
+					background: #e7e7e7;	
+					transition: .3s background;
+				}
+			}
+		}
+	}
+	&__slider {
+		position: absolute;
+		top: 50%;
+		left: 5%;
+		transform: translateY(-50%);
+		box-shadow: 3px 4px 11px -2px rgba(0, 0, 0, 0.75);
+		width: 43%;
+
+		&__slides {
+			display: flex;
+			height: 510px;
+
+			img {
+				width: 100%;
+				height: 512px;
+			}
+		}
+	}
+}

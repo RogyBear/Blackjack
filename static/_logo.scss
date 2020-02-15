@@ -1,0 +1,126 @@
+.logo {
+	&__background {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: #000;
+		z-index: 3;
+		overflow-y: hidden;
+		// animation: opacityFillReverse 2s forwards;
+		animation-delay: 1s;
+	}
+	&__img {
+		width: 60rem;
+		z-index: 5;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		// animation: opacityFill 3s forwards, flyLeft 1.5s 1s forwards;
+	}
+}
+
+// .flyLeft {
+// 	animation: flyLeft 2s forwards;
+// 	animation-delay: 1s;
+// }
+@keyframes flyLeft {
+	from {
+		width: 60rem;
+	}
+	to {
+		top: 16rem;
+		left: 23rem;
+		width: 25rem;
+	}
+}
+@keyframes flyLeftHold {
+	
+	100% {
+		top: 16rem;
+		left: 23rem;
+		width: 25rem;
+	}
+}
+
+@keyframes opacityFill {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+@keyframes opacityFillReverse {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+		z-index: -1;
+	}
+}
+
+@keyframes z-indexFade {
+	to {
+		z-index: -1;
+	}
+}
+
+//////////////////////////////////////
+//Media Queries
+//////////////////////////////////////
+
+@media screen and (max-width: 1700px) {
+	@keyframes flyLeft {
+		from {
+			width: 60rem;
+		}
+		to {
+			top: 16rem;
+			left: 18rem;
+			width: 22rem;
+		}
+	}
+}
+@media screen and (max-width: 1500px) {
+	@keyframes flyLeft {
+		from {
+			width: 60rem;
+		}
+		to {
+			top: 12rem;
+			left: 15rem;
+			width: 20rem;
+		}
+	}
+}
+@media screen and (max-width: 1440px) {
+	@keyframes flyLeft {
+		from {
+			width: 60rem;
+		}
+		to {
+			top: 12rem;
+			left: 15rem;
+			width: 16rem;
+		}
+	}
+}
+
+@media screen and (max-width: 1271px) {
+	@keyframes flyLeft {
+		from {
+			width: 60rem;
+		}
+		to {
+			top: 11rem;
+			left: 15.5rem;
+			width: 16rem;
+		}
+	}
+}
