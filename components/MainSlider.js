@@ -67,9 +67,10 @@ export default class MainSlider extends Component {
 						autoplaySpeed={4500}
 					>
 						{data.map((e) => {
+							console.log(e);
 							return (
 								<div className="main-slider__slider__slides">
-									<img src={`http://localhost:1337${e.image.url}`} />
+									<img src={`${e.image[0].url}`} />
 								</div>
 							);
 						})}

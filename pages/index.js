@@ -7,10 +7,7 @@ export default function Index(props) {
 		<div className="main">
 			<div className="main__upper-box">
 				<div className="main__upper-box__picture">
-					<img
-						className="main__upper-box__picture__img"
-						src={`http://localhost:1337${props.entries[0].picture.url}`}
-					/>
+					<img className="main__upper-box__picture__img" src={`${props.entries[0].picture[0].url}`} />
 				</div>
 
 				<div className="main__upper-box__text-boxes">
@@ -35,11 +32,10 @@ export default function Index(props) {
 
 Index.getInitialProps = async () => {
 	const res = await axios.get('http://localhost:1337/homes');
-	// const res1 = await axios.get('http://localhost:1337/homesliders');
+
 	const { data } = res;
-	// const { data1 } = res1;
+
 	return {
 		entries: data
-		// entries1: data1
 	};
 };

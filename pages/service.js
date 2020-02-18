@@ -6,10 +6,7 @@ export default function Service(props) {
 		<div className="service">
 			<div className="service__upper-section">
 				<div className="service__upper-section__picture">
-					<img
-						className="service__upper-section__picture__img"
-						src={`http://localhost:1337${props.entries[0].picture.url}`}
-					/>
+					<img className="service__upper-section__picture__img" src={`${props.entries[0].picture[0].url}`} />
 				</div>
 				<div className="service__upper-section__text">
 					<h1 className="service__upper-section__text__title">{props.entries[0].title}</h1>
@@ -29,7 +26,7 @@ export default function Service(props) {
 				<div className="service__lower-section__picture">
 					<img
 						className="service__lower-section__picture__img"
-						src={`http://localhost:1337${props.entries[1].picture.url}`}
+						src={`${props.entries[1].picture[0].url}`}
 					/>
 				</div>
 				<div className="service__lower-section__text">

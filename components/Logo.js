@@ -14,9 +14,10 @@ export default function Logo() {
 		}, 1000);
 	};
 
-	if (router.pathname === '/') {
+	if (router.pathname === '/' && logoLoad === false) {
 		logoAnimation = {
-			animation: 'opacityFill 3s forwards, flyLeft 3s 1s forwards'
+			animation: 'opacityFill 3s forwards, flyLeft 3s 1s',
+			animationFillMode: 'forwards'
 		};
 
 		backgroundAnimation = {
@@ -38,7 +39,13 @@ export default function Logo() {
 				style={logoLoad === false ? backgroundAnimation : { zIndex: '-1', opacity: 0 }}
 				onAnimationEnd={handleAnimation}
 			/>
-			<img className="logo__img" src="../static/logo_house.svg" style={logoLoad === false ? logoAnimation : {}} />
+			<img
+				className="logo__img"
+				src="../static/logo_house.svg"
+				style={logoLoad === false ? logoAnimation : logoAnimation}
+			/>
 		</Fragment>
 	);
 }
+
+// style={logoLoad === false ? logoAnimation : {}}
