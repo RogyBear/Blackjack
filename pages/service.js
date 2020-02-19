@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+console.log(process.env.BLACKJACKCMS);
 export default function Service(props) {
 	return (
 		<div className="service">
@@ -24,10 +25,7 @@ export default function Service(props) {
 			</div>
 			<div className="service__lower-section">
 				<div className="service__lower-section__picture">
-					<img
-						className="service__lower-section__picture__img"
-						src={`${props.entries[1].picture[0].url}`}
-					/>
+					<img className="service__lower-section__picture__img" src={`${props.entries[1].picture[0].url}`} />
 				</div>
 				<div className="service__lower-section__text">
 					<h1 className="service__lower-section__text__title">{props.entries[1].title}</h1>
@@ -48,7 +46,7 @@ export default function Service(props) {
 }
 
 Service.getInitialProps = async () => {
-	const res = await axios.get('http://localhost:1337/services');
+	const res = await axios.get(`${process.env.BLACKJACKCMS}/services`);
 	const { data } = res;
 	return {
 		entries: data

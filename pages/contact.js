@@ -18,7 +18,7 @@ export default function Contact(props) {
 		e.preventDefault();
 		//Axios Post Request
 		axios
-			.post('http://localhost:1337/email', contact, { headers: { 'Content-Type': 'application/json' } })
+			.post(`${process.env.BLACKJACKCMS}/email`, contact, { headers: { 'Content-Type': 'application/json' } })
 			.then((res) => {
 				console.log('Email Sent Successfully');
 			})
@@ -138,7 +138,7 @@ export default function Contact(props) {
 }
 
 Contact.getInitialProps = async () => {
-	const res = await axios.get(`http://localhost:1337/contacts`);
+	const res = await axios.get(`${process.env.BLACKJACKCMS}/contacts`);
 	const { data } = res;
 	return {
 		entries: data

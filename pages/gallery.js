@@ -19,7 +19,7 @@ export default function Gallery(props) {
 						{e.image.map((image) => (
 							<div className="gallery__slider__slide">
 								<div className="gallery__slider__slide__content">
-									<img src={`http://localhost:1337${image.url}`} />
+									<img src={`${image[0].url}`} />
 								</div>
 							</div>
 						))}
@@ -31,7 +31,7 @@ export default function Gallery(props) {
 }
 
 Gallery.getInitialProps = async () => {
-	const res = await axios.get(`http://localhost:1337/galleries`);
+	const res = await axios.get(`${process.env.BLACKJACKCMS}/galleries`);
 	const { data } = res;
 	return { pictures: data };
 };

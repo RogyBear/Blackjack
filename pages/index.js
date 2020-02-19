@@ -31,7 +31,7 @@ export default function Index(props) {
 }
 
 Index.getInitialProps = async () => {
-	const res = await axios.get('http://localhost:1337/homes');
+	const res = await axios.get(`${process.env.BLACKJACKCMS}/homes`);
 
 	const { data } = res;
 

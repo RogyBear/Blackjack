@@ -8,40 +8,40 @@ export default function nav({ href }) {
 	const style = {
 		color: '#ff6e21'
 	};
-	let uber = path === href ? style : { color: 'white' };
+
 	return (
 		<nav className="nav">
 			<ul className="nav__list">
 				<li className="nav__list__item">
-					<Link href="index">
+					<Link href="/">
 						<a className="nav__list__item__link" style={path === '/index' ? style : { color: 'white' }}>
 							Home
 						</a>
 					</Link>
 				</li>
 				<li className="nav__list__item">
-					<Link href="service">
+					<Link href="/service">
 						<a className="nav__list__item__link" style={path === '/service' ? style : { color: 'white' }}>
 							Service
 						</a>
 					</Link>
 				</li>
 				<li className="nav__list__item">
-					<Link href="gallery">
+					<Link href="/gallery">
 						<a className="nav__list__item__link" style={path === '/gallery' ? style : { color: 'white' }}>
 							Gallery
 						</a>
 					</Link>
 				</li>
 				<li className="nav__list__item">
-					<Link href="career">
+					<Link href="/career">
 						<a className="nav__list__item__link" style={path === '/career' ? style : { color: 'white' }}>
 							Career
 						</a>
 					</Link>
 				</li>
 				<li className="nav__list__item">
-					<Link href="contact">
+					<Link href="/contact">
 						<a className="nav__list__item__link" style={path === '/contact' ? style : { color: 'white' }}>
 							Contact
 						</a>

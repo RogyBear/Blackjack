@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 export default function Career(props) {
 	// State for contact information
-	const [ career, setCareer ] = useState({code: 'career'});
+	const [ career, setCareer ] = useState({ code: 'career' });
 	const [ file, setFile ] = useState({});
 	const ref = React.createRef();
 	// Handler functions for the form
@@ -26,7 +26,7 @@ export default function Career(props) {
 		formData.append('file', file, fileName[0]);
 
 		axios
-			.post('http://localhost:1337/upload', formData, {
+			.post(`${process.env.BLACKJACKCMS}/upload`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
@@ -34,7 +34,7 @@ export default function Career(props) {
 			.then((res) => {
 				console.log(res);
 				axios
-					.post('http://localhost:1337/email', career, { headers: { 'Content-Type': 'application/json' } })
+					.post(`${process.env.BLACKJACKCMS}/email`, career, { headers: { 'Content-Type': 'application/json' } })
 					.then((res) => {
 						console.log('Email Sent Successfully');
 					})
@@ -127,7 +127,7 @@ export default function Career(props) {
 }
 
 Career.getInitialProps = async () => {
-	const res = await axios.get('http://localhost:1337/careers');
+	const res = await axios.get(`${process.env.BLACKJACKCMS}/careers`);
 	const { data } = res;
 	return {
 		entries: data
