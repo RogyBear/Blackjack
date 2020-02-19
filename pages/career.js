@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 export default function Career(props) {
 	// State for contact information
-	const [ career, setCareer ] = useState({ code: 'career' });
+	const [ career, setCareer ] = useState({ code: 'career', fileTarget: null });
+	const [ firstRender, setFirstRender ] = useState(false);
 	const [ file, setFile ] = useState({});
 	const ref = React.createRef();
 	// Handler functions for the form
@@ -15,9 +16,27 @@ export default function Career(props) {
 			file: file.name
 		}));
 	};
-
-	console.log(props.entries);
-	const handleSubmit = (e) => {
+	useEffect(
+		() => {
+			if (firstRender === true) {
+				console.log('file target called');
+				axios
+					.post(`${process.env.BLACKJACKCMS}/email`, career, {
+						headers: { 'Content-Type': 'application/json' }
+					})
+					.then((res) => {
+						console.log('Email Sent Successfully');
+					})
+					.catch((err) => {
+						console.log(err);
+						console.log('Error, could not send email');
+					});
+			}
+			setFirstRender(true);
+		},
+		[ career.fileTarget ]
+	);
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		//Axios Post Request
 		const formData = new FormData(e.target);
@@ -32,16 +51,11 @@ export default function Career(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res);
-				axios
-					.post(`${process.env.BLACKJACKCMS}/email`, career, { headers: { 'Content-Type': 'application/json' } })
-					.then((res) => {
-						console.log('Email Sent Successfully');
-					})
-					.catch((err) => {
-						console.log(err);
-						console.log('Error, could not send email');
-					});
+				console.log(res.data);
+				setCareer((prevState) => ({
+					...prevState,
+					fileTarget: res.data[0].url
+				}));
 			})
 			.catch((err) => {
 				console.log(err);
