@@ -1,0 +1,12 @@
+.thanks {
+	color: #ff6e21;
+	opacity: 0;
+	font-size: 1.8rem;
+	padding: 1rem 0;
+}
+
+@keyframes fade-in {
+	to {
+		opacity: 1;
+	}
+}

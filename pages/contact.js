@@ -1,32 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { css } from '@emotion/core';
+import ThankYou from '../components/ThankYou';
 export default function Contact(props) {
 	const options = [
 		{ value: 'commercial', label: 'Commercial Inquiry' },
 		{ value: 'residential', label: 'Residential Inquiry' },
 		{ value: 'other', label: 'Other' }
 	];
-
+	//Styles
+	const override = css`
+		display: block;
+		border-color: #ff6e21;
+	`;
 	// State for contact information
-	const [ contact, setContact ] = useState({code: 'contact'});
+	const [ contact, setContact ] = useState({ code: 'contact' });
 	const [ selectedOption, setSelectedOption ] = useState();
+	const [ loading, setLoading ] = useState(false);
+	const [ thankYou, setThankYou ] = useState(false);
+	const [ thankYouMessage, setThankYouMessage ] = useState({ message: null });
 
-	// Handler functions for the form
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		//Axios Post Request
-		axios
-			.post(`${process.env.BLACKJACKCMS}/email`, contact, { headers: { 'Content-Type': 'application/json' } })
-			.then((res) => {
-				console.log('Email Sent Successfully');
-			})
-			.catch((err) => {
-				console.log(err);
-				console.log('Error, could not send email');
-			});
-	};
+	// Handler functions (state change)
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
@@ -44,6 +40,26 @@ export default function Contact(props) {
 		}));
 	};
 
+	// Handle Submit function for the form
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		//Axios Post Request
+		setLoading(true);
+		axios
+			.post(`${process.env.BLACKJACKCMS}/email`, contact, { headers: { 'Content-Type': 'application/json' } })
+			.then((res) => {
+				setThankYou(true);
+				setThankYouMessage({
+					message: 'Your message was sent successfully. We will be in contact with you shortly. '
+				});
+			})
+			.catch((err) => {
+				setThankYou(true);
+				setThankYouMessage({ message: 'There was an error sending your message. Please try again later. ' });
+			});
+	};
+
 	return (
 		<div className="contact">
 			<h1 className="contact__title">{props.entries[0].orange_title}</h1>
@@ -59,6 +75,8 @@ export default function Contact(props) {
 							<div className="contact__information__text__form__group">
 								<label htmlFor="name">First Name</label>
 								<input
+									disabled={loading}
+									required={!loading}
 									onChange={handleChange}
 									className="contact__information__text__form__input"
 									id="firstName"
@@ -70,6 +88,8 @@ export default function Contact(props) {
 							<div className="contact__information__text__form__group">
 								<label htmlFor="name">Last Name</label>
 								<input
+									disabled={loading}
+									required={!loading}
 									onChange={handleChange}
 									className="contact__information__text__form__input"
 									id="lastName"
@@ -81,6 +101,8 @@ export default function Contact(props) {
 						<div className="contact__information__text__form__row email-row">
 							<label htmlFor="email">Email Address</label>
 							<input
+								disabled={loading}
+								required={!loading}
 								onChange={handleChange}
 								className="contact__information__text__form__input email"
 								id="email"
@@ -91,6 +113,7 @@ export default function Contact(props) {
 						<div className="contact__information__text__form__row email-row">
 							<label htmlFor="subject">Subject</label>
 							<Select
+								isDisabled={loading}
 								onChange={handleSelectedOption}
 								className="react-select"
 								classNamePrefix="react-select"
@@ -107,9 +130,7 @@ export default function Contact(props) {
 									colors: {
 										neutral0: '#eee',
 										primary25: '#ff6e21',
-										primary: '#333',
-										neutral90: '#eee',
-										neutral70: '#eee'
+										primary: '#333'
 									}
 								})}
 								options={options}
@@ -118,6 +139,8 @@ export default function Contact(props) {
 						<div className="contact__information__text__form__row text-row">
 							<label htmlFor="message">Message</label>
 							<textarea
+								disabled={loading}
+								required={!loading}
 								className="contact__information__text__form__input text-box"
 								onChange={handleChange}
 								name="message"
@@ -125,8 +148,21 @@ export default function Contact(props) {
 								type="email"
 							/>
 						</div>
-						<div className="contact__information__text__form__row ">
-							<button className="contact__information__text__form__button">Submit</button>
+						<div className="contact__information__text__form__row submit">
+							{thankYou ? (
+								<ThankYou startFade={thankYou} message={thankYouMessage} />
+							) : (
+								<div className="submit__transition">
+									<button
+										disabled={loading}
+										style={loading ? { cursor: 'default' } : { cursor: 'pointer' }}
+										className="contact__information__text__form__button"
+									>
+										Submit
+									</button>
+									<ClipLoader css={override} loading={loading} />{' '}
+								</div>
+							)}
 						</div>
 					</form>
 				</div>

@@ -60,7 +60,7 @@
 		}
 		&__form {
 			margin-top: 3rem;
-
+			position: relative;
 			width: 90rem;
 			&__title {
 				color: #ff6e21;
@@ -76,6 +76,8 @@
 			&__lower {
 				display: flex;
 				justify-content: center;
+				align-items: center;
+				margin-top: 4rem;
 			}
 			&__group {
 				display: flex;
@@ -95,7 +97,7 @@
 				background: #ff6e21;
 				color: white;
 				cursor: pointer;
-				margin-top: 5rem;
+				margin-top: 4rem;
 			}
 			.file {
 				display: none;
@@ -106,8 +108,21 @@
 				justify-content: center;
 				align-items: center;
 				background: grey;
-
 				cursor: pointer;
+				&__name {
+					margin-top: .5rem;
+					font-size: 1.8rem;
+					height: 2rem;
+					width: 100%;
+				}
+			}
+			.career-submit {
+				position: relative;
+				margin: 0 !important;
+				margin-right: 1rem !important;
+				&__btn {
+					margin: 0 !important;
+				}
 			}
 		}
 	}

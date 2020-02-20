@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { css } from '@emotion/core';
+import ThankYou from '../components/ThankYou';
 export default function Career(props) {
 	// State for contact information
 	const [ career, setCareer ] = useState({ code: 'career', fileTarget: null });
 	const [ firstRender, setFirstRender ] = useState(false);
 	const [ file, setFile ] = useState({});
-	const ref = React.createRef();
+	const [ loading, setLoading ] = useState(false);
+	const [ required, setRequired ] = useState(true);
+	const [ thankYou, setThankYou ] = useState(false);
+	const [ thankYouMessage, setThankYouMessage ] = useState({ message: null });
 	// Handler functions for the form
-	const formElem = ref;
+
 	const handleUpload = (e) => {
 		let file = e.target.files[0];
 		setFile(file);
@@ -26,10 +32,18 @@ export default function Career(props) {
 					})
 					.then((res) => {
 						console.log('Email Sent Successfully');
+						setLoading(false);
+						setThankYou(true);
+						setThankYouMessage({
+							message: 'Your resume was sent successfully.'
+						});
 					})
 					.catch((err) => {
-						console.log(err);
-						console.log('Error, could not send email');
+						setLoading(false);
+						setThankYou(true);
+						setThankYouMessage({
+							message: 'There was an error sending your resume. Please try again later'
+						});
 					});
 			}
 			setFirstRender(true);
@@ -39,6 +53,8 @@ export default function Career(props) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		//Axios Post Request
+		setRequired(false);
+		setLoading(true);
 		const formData = new FormData(e.target);
 		let fileName = file.name.split('.');
 
@@ -70,6 +86,13 @@ export default function Career(props) {
 			[name]: value
 		}));
 	};
+	const override = css`
+		display: block;
+		position: absolute;
+		right: 23px;
+		top: 26%;
+		border-color: white;
+	`;
 	return (
 		<div className="career">
 			<div className="career__upper-section">
@@ -89,31 +112,42 @@ export default function Career(props) {
 			</div>
 			<div className="career__lower-section">
 				<p className="career__lower-section__paragraph">{props.entries[0].lower_description}</p>
-				<form onSubmit={handleSubmit} ref={ref} className="career__lower-section__form">
+				<form onSubmit={handleSubmit} className="career__lower-section__form">
 					<h2 className="career__lower-section__form__title">{props.entries[0].lower_title}</h2>
 					<div className="career__lower-section__form__upper">
 						<div className="career__lower-section__form__group">
 							<input
+								disabled={!required}
+								required={required}
 								onChange={handleChange}
 								type="text"
 								className="career__lower-section__form__input"
 								name="firstName"
 								placeholder="First Name"
 							/>
-							<label htmlFor="file-upload" className="career__lower-section__form__input file-upload">
+							<label
+								htmlFor="file-upload"
+								style={!required === true ? { cursor: 'default' } : {}}
+								className="career__lower-section__form__input file-upload"
+							>
 								Upload Resume
 							</label>
 							<input
+								disabled={!required}
+								required={required}
 								onChange={handleUpload}
 								type="file"
 								id="file-upload"
 								name="files"
 								className="career__lower-section__form__input file"
 							/>
+							<div className="file-upload__name">{career.file}</div>
 						</div>
 
 						<div className="career__lower-section__form__group">
 							<input
+								disabled={!required}
+								required={required}
 								onChange={handleChange}
 								type="text"
 								className="career__lower-section__form__input"
@@ -121,6 +155,8 @@ export default function Career(props) {
 								placeholder="Last Name"
 							/>
 							<input
+								disabled={!required}
+								required={required}
 								onChange={handleChange}
 								type="email"
 								className="career__lower-section__form__input"
@@ -130,9 +166,20 @@ export default function Career(props) {
 						</div>
 					</div>
 					<div className="career__lower-section__form__lower">
-						<div className="career__lower-section__form__group">
-							<input type="submit" value="Submit" className="career__lower-section__form__input" />
-						</div>
+						{thankYou ? (
+							<ThankYou startFade={thankYou} message={thankYouMessage} />
+						) : (
+							<div className="career__lower-section__form__group career-submit">
+								<input
+									style={!required === true ? { cursor: 'default' } : {}}
+									disabled={!required}
+									type="submit"
+									value={loading ? 'Please Wait...' : 'Submit'}
+									className="career__lower-section__form__input career-submit__btn"
+								/>
+								<ClipLoader css={override} size={23} loading={loading} />
+							</div>
+						)}
 					</div>
 				</form>
 			</div>
